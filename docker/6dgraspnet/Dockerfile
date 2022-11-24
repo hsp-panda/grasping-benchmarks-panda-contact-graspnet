@@ -140,9 +140,7 @@ RUN mkdir -p ${CATKIN_WS_DIR}/src && \
 # =============================================
 
 RUN pip3 install vtk==8.1.0 &&\
-    pip3 install tensorflow-gpu==1.13.1 &&\
-    pip3 uninstall pyglet &&\
-    pip3 install pyglet==1.5
+    pip3 install tensorflow-gpu==1.13.1
 
 RUN mkdir -p ${WS_SOURCES} &&\
      cd ${WS_SOURCES} &&\
