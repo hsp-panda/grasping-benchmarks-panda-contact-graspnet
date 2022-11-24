@@ -141,16 +141,14 @@ RUN mkdir -p ${CATKIN_WS_DIR}/src && \
 # Install contact_graspnet and related dependencies
 # =============================================
 
-RUN pip3 install vtk==8.1 &&\
-    pip3 uninstall pyglet &&\
-    pip3 install pyglet==1.5
+RUN pip3 install vtk==8.1 
 
 RUN cd ${WS_SOURCES} &&\
-    git clone https://github.com/hsp-panda/contact_graspnet.git &&\
+    git clone https://github.com/Ale909/contact_graspnet.git &&\
     cd contact_graspnet/ &&\
     pip3 install --ignore-installed -r requirements.txt &&\
     chmod +x download_checkpoints_data.sh &&\
-    sh download_checkpoints_data.sh
+    ./download_checkpoints_data.sh
 
 ###################################
 
@@ -168,6 +166,8 @@ RUN cd ${CATKIN_WS_DIR}/src &&\
     catkin config --extend /opt/ros/${ROS_DISTRO} -DPYTHON_EXECUTABLE=/usr/bin/python3 -DCMAKE_BUILD_TYPE=Release -DGPD_ROS=OFF &&\
     catkin build  -j8 && \
     find ${CATKIN_WS_DIR} -not -group runtimeusers -exec chgrp runtimeusers {} \; -exec chmod g+rw {} \+
+
+RUN pip3 install pyglet==1.5
 
 # =============
 # FIX OWNERSHIP
