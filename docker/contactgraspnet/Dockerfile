@@ -141,7 +141,9 @@ RUN mkdir -p ${CATKIN_WS_DIR}/src && \
 # Install contact_graspnet and related dependencies
 # =============================================
 
-RUN pip3 install vtk==8.1
+RUN pip3 install vtk==8.1 &&\
+    pip3 uninstall pyglet &&\
+    pip3 install pyglet==1.5
 
 RUN cd ${WS_SOURCES} &&\
     git clone https://github.com/hsp-panda/contact_graspnet.git &&\
