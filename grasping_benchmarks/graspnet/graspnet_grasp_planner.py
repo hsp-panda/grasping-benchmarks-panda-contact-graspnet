@@ -21,10 +21,11 @@ import tensorflow as tf
 # Requires a GRASPNET_DIR environment variable pointing to the root of the repo
 sys.path.append(os.environ['GRASPNET_DIR'])
 os.chdir(os.environ['GRASPNET_DIR'])
-from demo.main import get_color_for_pc, backproject, make_parser
-import grasp_estimator
+#from demo.main import get_color_for_pc, backproject, make_parser
+from contact_grasp_estimator import GraspEstimator
 # import utils as utils
 import visualization_utils 
+import ipdb
 
 
 class ArucoBoardData:
@@ -164,7 +165,7 @@ class GraspNetGraspPlanner(BaseGraspPlanner):
 
         # Additional configuration of the planner
         self._grasp_offset = grasp_offset
-        self.configure(self.cfg)
+        self.cfg
 
         self.latest_grasps = []
         self.latest_grasp_scores = []
@@ -314,8 +315,8 @@ class GraspNetGraspPlanner(BaseGraspPlanner):
 
         self.n_of_candidates = n_candidates
 
-    
-        self.estimator = grasp_estimator.GraspEstimator(self.cfg_grasp_estimator)
+        ipdb.set_trace()
+        self.estimator = GraspEstimator(self.cfg)
         # Compute grasps according to the pytorch implementation
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
