@@ -106,10 +106,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com \
     rosdep update &&\
     echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /etc/bash.bashrc
 
-# RUN apt-key adv --keyserver keyserver.ubuntu.com \
-#                 --recv-keys 6AF7F09730B3F0A4 &&\
-#                 apt-get update &&\
-#                 apt-get install ros-melodic-ros-numpy
+RUN apt-key adv --keyserver keyserver.ubuntu.com \
+                --recv-keys 6AF7F09730B3F0A4 &&\
+                apt-get update &&\
+                apt-get install ros-melodic-ros-numpy
 
 # Set workspace directories
 # =========================
@@ -152,7 +152,7 @@ RUN cd ${WS_SOURCES} &&\
 
 ###################################
 
-ENV GRASPNET_DIR=${WS_SOURCES}/contact_graspnet
+ENV GRASPNET_DIR=${WS_SOURCES}/contact_graspnet/contact_graspnet
 
 # # Install benchmark-grasping
 # # ==========================
