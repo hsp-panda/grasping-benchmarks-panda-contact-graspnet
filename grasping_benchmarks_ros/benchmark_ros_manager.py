@@ -36,7 +36,7 @@ from panda_ros_common.srv import PandaGrasp, PandaGraspRequest, PandaGraspRespon
 
 import numpy as np
 import re
-
+import ipdb
 NUMBER_OF_CANDIDATES = 10
 
 NEW_MSG = {
@@ -57,12 +57,12 @@ class GraspingBenchmarksManager(object):
         self._grasp_planner = rospy.ServiceProxy(grasp_planner_service_name, GraspPlanner)
         rospy.loginfo("...Connected with service {}".format(grasp_planner_service_name))
 
-        # --- panda service --- #
-        panda_service_name =  "/panda_grasp_server/panda_grasp"
-        rospy.loginfo("GraspingBenchmarksManager: Waiting for panda control service...")
-        rospy.wait_for_service(panda_service_name, timeout=60.0)
-        self._panda = rospy.ServiceProxy(panda_service_name, PandaGrasp)
-        rospy.loginfo("...Connected with service {}".format(panda_service_name))
+        # # --- panda service --- #
+        # panda_service_name =  "/panda_grasp_server/panda_grasp"
+        # rospy.loginfo("GraspingBenchmarksManager: Waiting for panda control service...")
+        # rospy.wait_for_service(panda_service_name, timeout=60.0)
+        # self._panda = rospy.ServiceProxy(panda_service_name, PandaGrasp)
+        # rospy.loginfo("...Connected with service {}".format(panda_service_name))
 
         # --- subscribers to camera topics --- #
         self._cam_info_sub = message_filters.Subscriber('/camera/aligned_depth_to_color/camera_info', CameraInfo)
@@ -76,7 +76,7 @@ class GraspingBenchmarksManager(object):
 
         # --- camera data synchronizer --- #
         self._tss = message_filters.ApproximateTimeSynchronizer([self._cam_info_sub, self._rgb_sub, self._depth_sub, self._pc_sub],
-                                                                queue_size=1, slop=0.5)
+                                                                queue_size=100, slop=0.5)
         self._tss.registerCallback(self._camera_data_callback)
 
         # --- robot/camera transform listener --- #
